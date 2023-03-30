@@ -1,0 +1,312 @@
+\documentclass{article}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+%Entorno para portadas
+
+%---------------README----------------->
+%USE \include{Portada} %for import front page from main.tex
+%USE \usepackage{amsmath} en el preambulo del main
+%<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+\begin{document}
+
+\begin{titlepage}
+%--------------- COMANDO LINEA----------------->
+\newcommand{\linea}{\rule{\linewidth}{0.7mm}}                 
+\center
+
+
+%<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+%Add logos
+\includegraphics[width=0.22\textwidth]{logo-uanl.png}\\[0.02cm]
+\includegraphics[width=0.25\textwidth]{logo chido fcfm.png}\\[0.02cm]
+\vfill
+
+\begin{center}
+    {\bfseries\LARGE Universidad Autónoma de Nuevo León\par}
+\vspace{0.5cm}
+{\scshape\Large Facultad de Ciencias Físico Matemáticas \par}
+\vspace{1cm}
+{\scshape\Large Maestría de Ciencias de Datos}
+\end{center}
+%---------------TÍTULO----------------->
+\linea
+\vfill
+
+\textbf{\Large Prediccíon de enfermedades cardíacas utilizando Aprendizaje Automático}\\[0.8cm]
+\linea \\
+\vfill
+%Title of the Research
+\textbf{\large}\\
+%<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+%Team
+    \vfill
+    \textbf{\large  \textbf{Profesor: José Alberto Benavides Vázquez}}\\
+    \vspace{0.25CM}
+    \textbf{\large  \textbf{Actuario: Damián Atilano Martínez Alvarado}}\\
+    \vfill
+    
+%Fecha or Date
+    {\large \ Marzo 2023}\\
+    \newpage
+    \end{titlepage}
+
+\section{Introducción}
+
+El conjunto de datos de predicción de enfermedades cardíacas proporciona información vital sobre la relación entre los factores de riesgo y la salud cardíaca. Este conjunto de datos contiene 270 estudios de casos de personas clasificadas con o sin enfermedades cardíacas según los resultados de los cateterismos cardíacos, el estándar de oro en la evaluación de la salud cardíaca. Cada paciente se identifica mediante 7 variables.
+
+\begin{itemize}
+    
+\item Edad: La edad del paciente.  
+
+\item Sexo: Género del paciente, si es hombre (0) o si es mujer (1).
+
+\item TDP: Tipo de dolor en el pecho calificado del 1 al 4, siendo el 4 mas fuerte.
+
+\item Colesterol: Nivel de colesterol del paciente.
+
+\item FC: Frecuencia cardíaca.
+
+\item EA: Ejercicio de angina, siendo 0 bueno y 1 malo.
+
+\item Cardiopatía: Si el paciente cuenta con problemas cardíacos, siendo 0 si y 1 no.
+
+\end{itemize}
+
+En este proyecto se expondrán los resultados de los modelos aplicados al conjunto de datos para la predicción de enfermedades cardíacas. Para obtener el resultado más cercano se aplicarán aprendizajes no supervisados y supervisados.
+\vspace{0.25cm}
+
+El aprendizaje no supervisado es una técnica de aprendizaje automático en la que se utilizan algoritmos para analizar datos sin la necesidad de tener una etiqueta o respuesta previa que se quiera predecir. En este tipo de aprendizaje, el modelo no recibe información específica sobre la salida deseada y es el encargado de encontrar patrones o estructuras en los datos por sí solo.
+\vspace{0.25cm}
+
+El aprendizaje supervisado es un subconjunto del machine learning que consiste en la deducción de información a partir de datos de entrenamiento. Estos datos se clasifican en dos secciones: datos de entrenamiento y datos de prueba.
+Los datos de entrenamiento se utilizan para entrenar a un modelo, y los datos de prueba son los que se usan para determinar la eficacia del modelo creado.
+El objetivo del aprendizaje supervisado es crear un programa que sea capaz de resolver cualquier variable de entrada luego de ser sometido a un proceso de entrenamiento.
+\vspace{0.25cm}
+
+\section{Marco Teoríco}
+
+El aprendizaje automático es una rama de la inteligencia artificial que se centra en el desarrollo de algoritmos y modelos computacionales que permiten a las máquinas aprender y mejorar su capacidad para realizar tareas específicas a partir de datos.
+
+El aprendizaje automático se basa en la idea de que las máquinas pueden aprender de forma autónoma a través de la experiencia, sin necesidad de ser programadas explícitamente para realizar una tarea. En lugar de eso, se les proporciona un conjunto de datos de entrenamiento y algoritmos que les permiten aprender patrones y relaciones en los datos, y luego aplicar este conocimiento para realizar tareas similares en nuevos datos. Para llevar a cabo el entrenamiento se utilizaron los siguientes modelos:
+
+\subsection{Bosque aleatorio}
+
+El modelo de bosque aleatorio (Random Forest en inglés) es un algoritmo de aprendizaje automático que se utiliza para la clasificación, la regresión y otras tareas relacionadas con la predicción. Se basa en la idea de combinar múltiples árboles de decisión independientes para construir un modelo más robusto y preciso.
+
+Cada árbol de decisión en un bosque aleatorio se entrena con una submuestra aleatoria de los datos de entrenamiento, y cada nodo en el árbol se divide en función de la característica que proporciona la mayor reducción en la impureza del conjunto de datos. Esto se repite recursivamente hasta que se alcanza un criterio de parada, como la profundidad máxima del árbol o el número mínimo de muestras por hoja.
+
+La salida del modelo se determina por mayoría de votos (en el caso de la clasificación) o por promedio (en el caso de la regresión) de los resultados de todos los árboles de decisión en el bosque.
+\vspace{0.25cm}
+
+Matemáticamente, el modelo de bosque aleatorio se puede expresar como:
+\vspace{0.25cm}
+
+Para la clasificación:
+
+\begin{equation}
+f(x) = \operatorname{argmax}_{i} \sum_{j=1}^N T_j(x) == i
+\end{equation}
+
+donde f(x) es la clase predicha para el vector de características x, i es la clase de interés, N es el número de árboles de decisión en el bosque, y $T_j(x)$ es el resultado del j-ésimo árbol de decisión en el bosque para el vector de características x.
+\vspace{0.25cm}
+
+Para la regresión:
+
+\begin{equation}
+f(x) = \frac{1}{N} \sum_{j=1}^N T_j(x)
+\end{equation}
+
+donde f(x) es el valor predicho para el vector de características x, N es el número de árboles de decisión en el bosque, y $T_j$(x) es el resultado del j-ésimo árbol de decisión en el bosque para el vector de características x.
+
+En resumen, el modelo de bosque aleatorio es una técnica poderosa y versátil en el aprendizaje automático que utiliza múltiples árboles de decisión independientes para construir un modelo preciso y robusto.
+\vspace{0.25cm}
+
+\subsection{Árbol de decisión}
+
+El modelo de árbol de decisión es un algoritmo de aprendizaje automático que se utiliza para la clasificación y la regresión. Se basa en la idea de dividir el conjunto de datos en subconjuntos más pequeños y homogéneos utilizando una serie de preguntas que se realizan en cada nodo del árbol, hasta que se llega a las hojas del árbol, que representan las clases o valores de salida.
+
+Cada nodo en el árbol de decisión representa una característica de los datos de entrada y cada rama representa una posible respuesta a la pregunta en ese nodo. El objetivo es encontrar la mejor pregunta (característica) que divide los datos de la manera más homogénea posible. Para medir la homogeneidad de los subconjuntos, se utilizan diferentes métricas como la ganancia de información o la impureza de Gini.
+
+Matemáticamente, un árbol de decisión puede representarse como:
+
+Para la clasificación:
+
+\begin{equation}
+f(x) = \operatorname{argmax}_{i}\sum_{j=1}^Mw_jI(y_j = i)
+\end{equation}
+
+ donde f(x) es la clase predicha para el vector de características x, i es la clase de interés, M es el número de hojas en el árbol de decisión, $w_j$ es el peso asociado a la j-ésima hoja y $y_j$ es la clase correspondiente a la j-ésima hoja.
+
+Para la regresión:   
+
+\begin{equation*}
+f(x) = \sum_{j=1}^M w_j I(x \in R_j)
+\end{equation*}
+
+donde f(x) es el valor predicho para el vector de características x, M es el número de hojas en el árbol de decisión, $w_j$ es el peso asociado a la j-ésima hoja y $R_j$ es el conjunto de datos de entrenamiento que cae en la j-ésima hoja.
+
+\subsection{Clasificador bayes ingenuo}
+
+El clasificador de Bayes ingenuo es un algoritmo de aprendizaje automático que se basa en el teorema de Bayes para la clasificación de datos. El nombre "ingenuo" se debe a la suposición de que todas las características de los datos de entrada son independientes entre sí, lo que simplifica los cálculos.
+
+El clasificador de Bayes ingenuo asume que todas las características (o variables) del conjunto de datos son independientes entre sí, lo que significa que la presencia o ausencia de una característica no afecta a la presencia o ausencia de otra. El objetivo es calcular la probabilidad de que un ejemplo pertenezca a una clase determinada, dado que se han observado ciertos valores de características para ese ejemplo.
+
+
+Matemáticamente, el clasificador de Bayes ingenuo se expresa como:
+
+\begin{equation}
+p(C_k | x_1, x_2, ..., x_n) = \frac{p(C_k) \prod_{i=1}^n p(x_i | C_k)}{p(x_1, x_2, ..., x_n)}
+\end{equation}
+
+donde $p(C_k | x_1, x_2, ..., x_n)$ es la probabilidad de que el ejemplo pertenezca a la clase $C_k$ dada la observación de los valores de características $x_1, x_2, ..., x_n.$ $p(C_k)$ es la probabilidad previa de la clase $C_k, y p(x_i | C_k)$ es la probabilidad condicional de la característica i dado que el ejemplo pertenece a la clase $C_k$.
+\vspace{0.25cm}
+
+La fórmula anterior puede ser reescrita utilizando la regla de Bayes como:
+
+\begin{equation}
+p(C_k | x_1, x_2, ..., x_n) = \frac{p(C_k) \prod_{i=1}^n p(x_i | C_k)}{\sum_{j=1}^k p(C_j) \prod_{i=1}^n p(x_i | C_j)}
+\end{equation}
+
+donde la sumatoria en el denominador se extiende a través de todas las clases.
+\vspace{0.25cm}
+
+\subsection{Regresión logística}
+
+La regresión logística es un algoritmo de aprendizaje supervisado utilizado para la clasificación de datos binarios, es decir, para predecir si una observación pertenece a una de dos categorías posibles (por ejemplo, "sí" o "no", "verdadero" o "falso", "1" o "0"). El modelo de regresión logística utiliza una función logística para modelar la probabilidad de que una observación pertenezca a una de las dos categorías.
+
+La función logística se define como:
+
+\begin{equation}
+f(z) = \frac{1}{1 + e^{-z}}
+\end{equation}
+
+donde z es una combinación lineal de las características de entrada y los coeficientes del modelo, es decir,
+
+\begin{equation}
+z = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + ... + \beta_n x_n
+\end{equation}
+
+donde $x_1, x_2, ..., x_n$ son las características de entrada y $\beta_0, \beta_1, \beta_2, ..., \beta_n$ son los coeficientes del modelo.
+
+La función logística mapea los valores de z a un rango de [0,1], lo que se interpreta como la probabilidad de que la observación pertenezca a la categoría "positiva" o "1". La probabilidad de que la observación pertenezca a la categoría "negativa" o "0" se puede calcular como 1 menos la probabilidad de que pertenezca a la categoría "positiva".
+
+El modelo de regresión logística se entrena mediante el ajuste de los coeficientes del modelo para minimizar la función de pérdida logarítmica:
+
+\begin{equation}
+L(\beta) = -\frac{1}{m}\sum_{i=1}^m [y_i \log(f(z_i)) + (1-y_i) \log(1 - f(z_i))]
+\end{equation}
+
+donde m es el número de observaciones, y $y_i$ es la etiqueta de clase verdadera (0 o 1) para la i-ésima observación.
+
+\section{Metodología}
+
+El conjunto de datos se creo por "Irvine de la Universidad de California" y este es un conjunto de datos que se utiliza para predecir enfermedades del corazón. Se clasificó a los pacientes según tuvieran o no enfermedades cardíacas según el cateterismo cardíaco, el estándar de oro. Si tenían más del 50\% de estrechamiento de una arteria coronaria, se los etiquetaba como enfermos del corazón.
+En esta conjunto hay 270 pacientes y contamos con 6 variables predictivas (Edad, Sexo, TDP, Colesterol, FC, EA) y 1 variable de interés (Cardiopatía).
+
+\begin{table}[h]
+    \centering
+    \caption{Datos de las primeras filas para detectar Cardiopatía.}
+    \resizebox{\linewidth}{!}{
+    \begin{tabular}{ccccccc}
+    \hline
+
+Sexo &	Edad &	TDP & Colesterol &	EA & FC &	Cardiopatía\\\hline
+0 &	1 &	704 &	322	&   0 &	109 &	0\\
+1 &	0 &	673 & 564 &	0 &	160 &	1\\
+2 &	1 &	572 &	261 &	0 &	141 &	0\\
+3 &	1 &	644 &	263 &	1 &	105 &	1\\
+4 &	0 &	742 &	269 &	1 &	121 &	1\\\hline
+
+    \end{tabular}
+    }
+    \label{tab:1}
+\end{table}
+
+En el Cuadro 1 se muestran los primeros datos con los que se trabajarán, después de esto obtuvimos la densidad de cada variable.
+
+
+\begin{figure}[h]
+    \caption{Distribución de las variables.}
+    \includegraphics[scale = 0.37]{densidad.png}
+    \label{fig:1}
+\end{figure}
+
+A simple vista podriamos decir que nuestras variables Edad, Colesterol y FC siguen una distribución normal.
+\vspace{1cm}
+
+\section{Resultados}
+
+Para obtener los resultados deseados se forman los modelos a utilizar para llegar a la predicción mas cercana, estás son las antes ya mencionadas que son bosque aleatorio, árbol de decision, clasificador bayes ingenuo y regresión logística. Procedemos al entrenamiento ya haciendo un ajuste en el modelo y continuamos con la prueba de los datos para predecir la cardiopatía en base a las variables predictivas.
+
+\begin{table}[h]
+    \centering
+    \caption{Precisión de modelos.}
+    \begin{tabular}{cc}
+ \hline
+Modelo  & Puntuación  \\\hline
+Bosque aleatorio &    100.00 \\
+Árbol de decisión & 100.00 \\
+Clasificador Bayes Ingenuo & 78.70 \\ 
+Regresión logística & 77.78 \\ 
+    \end{tabular}
+    \label{tab:1}
+\end{table}
+
+\begin{figure}[h]
+    \caption{Matriz de confusión.}
+    \includegraphics[scale = 0.35]{Captura11.png}
+    \includegraphics[scale = 0.35]{Captura12.png}
+
+    \label{fig:1}   
+\end{figure}
+\vspace{0.25cm}
+
+En el Cuadro 2 podemos observar que el modelo de bosque aleatorio y árbol de decisión son el mejor modelo con 100\% de precisión, intentamos replicarlo y se obtuvo una precisión muy alta en ambos modelos. 
+
+Decidimos ajustar el modelo en nuestros datos donde la mayoría de los datos serán parte del entrenamiento y el restante sera de prueba, esto para poder partir con datos ya establecidos y asi también aplicaremos el recall para detectar los casos relevantes, esto lo veremos a continuación.
+\vspace{0.25cm}
+
+
+\begin{center}
+\begin{tabular}{cc}
+\hline
+Modelo  & Puntuación  \\\hline
+Bosque aleatorio &   72.92 \\
+Árbol de decisión & 55.88 \\
+Clasificador Bayes Ingenuo & 53.12 \\ 
+Regresión logística & 75.00 \\ 
+\end{tabular}
+\end{center}
+\vspace{0.25cm}
+
+\begin{figure}[h]
+    \caption{Matriz de confusión.}
+    \includegraphics[scale = 0.35]{Captura20.png}
+    \includegraphics[scale = 0.35]{Captura21.png}
+
+    \label{fig:1}   
+\end{figure}
+\vspace{0.25cm}
+
+
+
+Con el nuevo ajuste de modelo observamos el Cuadro 3 y nos menciona que el mejor modelo es el de regresíon logística y le sigue el bosque aleatorio, en la Figura 3 nos muestra la matriz de confusión donde hay un total de 48 valores predictivos de forma correcta por el modelo y solo 20 valores donde el modelo se ha equivocado.
+
+
+\section{Conclusiones}
+
+En el primer intento obtuvimos un 100\% de precisión de parte de 2 modelos que fueron: bosque aleatorio y árbol de decisión, en los datos esto lo podemos tomar como bueno pero a veces la información es inútil.
+Por eso mejor decidimos ajustar el modelo para obtener la sensibilidad de los datos y poder ver los casos mas relevantes.
+
+Al ajustar el modelo, nos dio como resultado que las técnicas de regresión logística y el bosque aleatorio eran los modelos con mejor precisión con un 75\% y 72\% respectivamente.
+
+En resumen, con los resultados obtenidos en este proyecto solo nos deja claro que podemos utilizar mas datos o variables predictivas para llegar una predicción mas efectiva realizando distintas pruebas en un futuro, también con estos avances tecnológicos en un plano laboral esto ayuda mucho a las empresas, doctores, etc. a detectar casos de enfermedades cardíacas de una manera mas sencilla y se pueden seguir empleando mejores técnicas o darle mejoras a la que ya se tiene.
+
+
+
+\end{document}
